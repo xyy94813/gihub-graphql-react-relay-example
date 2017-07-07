@@ -4,17 +4,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Necessary
 
-  yarn install
-  yarn run relay
+    yarn install
+    yarn run relay
   
 ## Dev
 
-  yarn start
+    yarn start
   
 ## Production
 
-  yarn run build
+    yarn run build
   
 ## test
 
-  yarn run test
+   yarn run test
