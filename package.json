@@ -1,5 +1,5 @@
 {
-  "name": "relay-test",
+  "name": "gihub-graphql-react-relay-example",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
