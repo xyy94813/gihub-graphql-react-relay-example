@@ -2,11 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-## Necessary
+## Necessary 1
 
     yarn install
     yarn run relay
-  
+    yarn run injectToken # Enter Git Hub API Token
+
 ## Dev
 
     yarn start

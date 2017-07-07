@@ -51,7 +51,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "relay": "relay-compiler --src ./src/ --schema ./data/schema.graphql"
+    "relay": "relay-compiler --src ./src/ --schema ./data/schema.graphql",
+    "injectToken": "node scripts/injectToken.js"
   },
   "devDependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",

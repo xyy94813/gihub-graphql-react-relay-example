@@ -1,6 +1,6 @@
 import {Environment, Network, RecordSource, Store} from 'relay-runtime'
 
-const TOKEN = "8a13a24993d4d669f21531b2214fa9a33fe9dc7f";
+import TOKEN from './Token';
 
 function fetchQuery(
   operation,
