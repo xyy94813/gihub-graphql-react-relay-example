@@ -1,0 +1,46 @@
+.App {
+  text-align: center;
+}
+
+/*.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}*/
+
+.App-main {
+  padding: 24px;
+}
+
+.App-main-content {
+  background: #fff;
+  padding: 24px;
+}
+
+.App-main-content-toolbar {
+  margin: 15px 0;
+}
+
+.App-main-content-users {
+  min-height: 354px;
+}
+.App-main-content-users-no {
+  padding: 50px;
+  border: 1px dashed #ececec;
+}
+.App-main-content-users-no:hover {
+  border-color: #108ee9;
+}
+.App-main-content-loader {
+  margin: 15px 0;
+  text-align: center;
+}
+.App-footer {
+  text-align: right;
+}
+
+.no-data-container {
+  min-height: 354px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}

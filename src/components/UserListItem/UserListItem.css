@@ -1,0 +1,8 @@
+.users-item {
+    border: 1px dashed #EEEEEE;
+    padding: 10px;
+    cursor: pointer;
+}
+.users-item-avatar {
+    width: 100%;
+}
