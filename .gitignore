@@ -23,3 +23,4 @@ node_modules
 
 # relay-compiler
 __generated__/
+watchman.exe
