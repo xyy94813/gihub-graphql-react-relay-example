@@ -1,14 +1,51 @@
 import React from 'react';
 import { 
     Row, 
-    Col 
+    Col,
+    Modal 
 } from 'antd';
 import {
+    QueryRenderer,
     createFragmentContainer,
     graphql
 } from 'react-relay';
 
 import './UserListItem.css';
+import UserDetails from '../../containers/UserDetails';
+import modernEnvironment from '../../createRelayEnvironment';
+
+function renderDetails ({error, props}) {
+    if (error) {
+        return <div>{error.message}</div>
+    } else if (props) {
+        return <UserDetails user={props.user}/>
+    } else {
+        return <div>Loading</div>
+    }
+}
+
+function getClickHandler (login) {
+    return (e) => {
+        Modal.info({
+            title: 'User Details',
+            width: 800,
+            content: <QueryRenderer
+                environment={modernEnvironment}
+                query={
+                    graphql`
+                        query UserListItemQuery ($login: String!) {
+                            user(login: $login) {
+                                ...UserDetails_user
+                            }
+                        }
+                    `
+                }
+                variables={{login}}
+                render={renderDetails}
+            />
+        });
+    }
+}
 
 function UserListItem (props) {
     const {
@@ -22,7 +59,7 @@ function UserListItem (props) {
         } = {}
     } = props;
     return (
-        <Row className="users-item" gutter={15}>
+        <Row className="users-item" gutter={15} onClick={getClickHandler(login)}>
             <Col span={2}>
                 <img src={avatarUrl} alt="avatarUrl" className="users-item-avatar" />
             </Col>

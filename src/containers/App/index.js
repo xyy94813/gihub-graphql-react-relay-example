@@ -73,15 +73,15 @@ class App extends Component {
               <Input.Search defaultValue={searchText} onSearch={this.handleInputChange}/>
             </div>
             <div className="App-main-content-users">
+              <Spin spinning={loading}>
               {
-                (userCount > 0) ? 
-                <Spin spinning={loading}>
-                  {users.map(({node}, index) => <UserListItem key={index} user={node}/>)}
-                </Spin> :
+                (userCount > 0) ? users.map(({node}, index) => <UserListItem key={index} user={node}/>)
+                :
                 <div className="no-data-container">
                   <span className="App-main-content-users-no">{searchText ? 'Please input other world' : 'Please input some world'}</span>
                 </div>
               }
+              </Spin>
             </div>
             {
               (userCount > pageSize) && (
