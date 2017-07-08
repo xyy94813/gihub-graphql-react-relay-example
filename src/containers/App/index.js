@@ -66,7 +66,9 @@ class App extends Component {
     const { searchText, loading, pageSize } = this.state;
     return (
       <Layout style={{minHeight: '100%'}}>
-        <Header/>
+        <Header>
+          <h1 className="App-header-title"><span>gihub-graphql-react-relay-example</span></h1>
+        </Header>
         <Content className="App-main">
           <div className="App-main-content">
             <div className="App-main-content-toolbar">

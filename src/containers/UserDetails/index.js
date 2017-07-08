@@ -5,6 +5,7 @@ import {
 } from 'react-relay';
 import {
     Tabs,
+    Badge,
     Row,
     Col
 } from 'antd';
@@ -27,7 +28,7 @@ function UserDetails (props) {
                     Object.entries(other).map(item => {
                         const [key, val] = item;
                         return val && (
-                            <Col span={12}>
+                            <Col key={key} span={12}>
                                 <span><b>{key}: </b></span>
                                 <span>{val}</span>
                             </Col>
@@ -37,11 +38,11 @@ function UserDetails (props) {
             </Row>
             <Row>
                 <Tabs defaultActiveKey="1">
-                    <TabPane tab={`repositories-[${repositories.totalCount}]`} key="1">
-                        {repositories.edges.map(item => <RepositoryListItem repository={item.node} />)}
+                    <TabPane tab={<div>repositories&nbsp;<Badge count={repositories.totalCount} /></div>} key="1">
+                        {repositories.edges.map((item, index) => <RepositoryListItem key={index} repository={item.node} />)}
                     </TabPane>
-                    <TabPane tab={`starredRepositories-[${starredRepositories.totalCount}]`} key="2">
-                        {starredRepositories.edges.map(item => <RepositoryListItem repository={item.node} />)}
+                    <TabPane tab={<div>starredRepositories&nbsp;<Badge count={starredRepositories.totalCount} /></div>} key="2">
+                        {starredRepositories.edges.map((item, index) => <RepositoryListItem key={index} repository={item.node} />)}
                     </TabPane>
                 </Tabs>
             </Row>
