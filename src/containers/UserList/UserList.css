@@ -1,0 +1,23 @@
+.UserList-header {
+  padding: 5px
+}
+
+.UserList-footer {
+  padding: 5px;
+  text-align: center;
+}
+
+.no-data-container {
+  min-height: 354px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.UserList-content-users-no {
+  padding: 50px;
+  border: 1px dashed #ececec;
+}
+.UserList-content-users-no:hover {
+  border-color: #108ee9;
+}

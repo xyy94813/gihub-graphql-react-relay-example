@@ -2,68 +2,31 @@ import React, { Component } from 'react';
 import {
   Layout,
   Input,
-  Spin,
-  Button
 } from 'antd';
-import {
-  // createPaginationContainer, 
-  createRefetchContainer,
-  graphql
-} from 'react-relay'
 import './App.css';
-import UserListItem from '../../components/UserListItem'
+// import UserListItem from '../../components/UserListItem'
+import UserList from '../UserList'
 
 const { Header, Content, Footer } = Layout;
 
 class App extends Component {
 
   state = {
-    searchText: '',
-    loading: false,
-    pageSize: 10
+    searchText: 'xyy'
   }
 
-  componentDidMount () {
-  }
-
-  handleInputChange = (searchText) => {
-    
-    this.setState({loading: true});
-    const refetchVariables = fragmentVariables => ({
-      count: 10,
-      query: searchText
-    });
-    this.props.relay.refetch(refetchVariables, null, () => {
-        this.setState({
-          searchText,
-          pageSize: 10,
-          loading: false
-        });
-    });
-  }
-
-  handleShowMoreButton = (e) => {
-    e.preventDefault()
-    this._loadMore();
-  }
-
-  _loadMore () {
-    this.setState({loading: true});
-    const refetchVariables = fragmentVariables => ({
-      count: this.state.pageSize + 10,
-      query: this.state.searchText
-    });
-    this.props.relay.refetch(refetchVariables, null, () => {
-        this.setState({
-          pageSize: this.state.pageSize + 10,
-          loading: false
-        });
-    });
+  handleInputChange = (value) => {
+    this.setState({ 
+      searchText: value
+    })
   }
 
   render () {
-    const { data: { search: { edges: users, userCount } } } = this.props;
-    const { searchText, loading, pageSize } = this.state;
+
+    const {
+      searchText
+    } = this.state
+
     return (
       <Layout className="App">
         <Header>
@@ -74,25 +37,9 @@ class App extends Component {
             <div className="App-main-content-toolbar">
               <Input.Search defaultValue={searchText} onSearch={this.handleInputChange}/>
             </div>
-            <div className="App-main-content-users">
-              <Spin spinning={loading}>
-              {
-                (userCount > 0) ? users.map(({node}, index) => <UserListItem key={index} user={node}/>)
-                :
-                <div className="no-data-container">
-                  <span className="App-main-content-users-no">{searchText ? 'Please input other world' : 'Please input some world'}</span>
-                </div>
-              }
-              </Spin>
+            <div className="App-main-content-data">
+              <UserList query={searchText}/>
             </div>
-            {
-              (userCount > pageSize) && (
-                <div className="App-main-content-loader">
-                  <Button onClick={this.handleShowMoreButton}>Show More ...</Button>
-                </div>
-              )
-            }
-            
           </div>
         </Content>
         <Footer className="App-footer">
@@ -102,38 +49,5 @@ class App extends Component {
     )
   }
 }
-/**
- * TODO Load More Use PaginationContainer 
- */
-export default createRefetchContainer(
-  App,
-  {
-    data: graphql.experimental`
-      fragment App_data on Query
-      @argumentDefinitions(
-        count: {type: "Int!", defaultValue: 10},
-        query: {type: "String!", defaultValue: ""}
-      ) {
-        search(query:$query, first: $count, type: USER) @connection(key: "UserList_search") {
-          userCount
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-          edges {
-            node {
-              ... on User {
-                ...UserListItem_user
-              }
-            }
-          }
-        }
-      }
-    `
-  },
-  graphql.experimental`
-    query AppRefetchQuery($count: Int!, $query: String!) {
-      ...App_data @arguments(count: $count, query: $query)
-    }
-  `,
-);
+
+export default App

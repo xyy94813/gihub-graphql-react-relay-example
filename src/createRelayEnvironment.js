@@ -1,7 +1,5 @@
 import {Environment, Network, RecordSource, Store} from 'relay-runtime'
 
-console.log(process.env)
-
 function fetchQuery(
   operation,
   variables,
