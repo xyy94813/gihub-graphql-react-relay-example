@@ -65,7 +65,7 @@ class App extends Component {
     const { data: { search: { edges: users, userCount } } } = this.props;
     const { searchText, loading, pageSize } = this.state;
     return (
-      <Layout style={{minHeight: '100%'}}>
+      <Layout className="App">
         <Header>
           <h1 className="App-header-title"><span>gihub-graphql-react-relay-example</span></h1>
         </Header>
