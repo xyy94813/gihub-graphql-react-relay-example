@@ -6,7 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
     yarn install
     yarn run relay
-    yarn run injectToken # Enter Git Hub API Token
+
+## Necessary 2
+
+    generate `.env.local`
+    
+    Configuration ENV
 
 ## Dev
 
@@ -19,3 +24,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## test
 
    yarn run test
+
+
+## ENV_KEY
+    
+    GITHUB_API_TOKEN

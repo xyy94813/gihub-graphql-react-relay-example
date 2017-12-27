@@ -1,6 +1,6 @@
 import {Environment, Network, RecordSource, Store} from 'relay-runtime'
 
-import TOKEN from './Token';
+console.log(process.env)
 
 function fetchQuery(
   operation,
@@ -11,7 +11,7 @@ function fetchQuery(
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `bearer ${TOKEN}`
+      'Authorization': `bearer ${process.env.REACT_APP_GITHUB_API_TOKEN}`
     },
     body: JSON.stringify({
       query: operation.text,
