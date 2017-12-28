@@ -7,11 +7,12 @@ import {
 } from 'react-relay'
 import {
   Button,
-  Spin
+  Spin,
+  List,
 } from 'antd'
 
 import modernEnvironment from "../../createRelayEnvironment";
-import UserListItem from '../../components/UserListItem'
+import UserListItem from './UserListItem'
 import './UserList.css'
 
 const DEFAULT_PAGE_SIZE = 15
@@ -55,14 +56,9 @@ class UserList extends React.Component {
   }
 
   showFooterContent () {
-    return (this.state.loadMore) ? <Spin /> : this.showMoreButton()
-  }
-
-  showNoDataContent () {
-
     return (
-      <div className="no-data-container">
-        <span className="UserList-content-users-no">{'No Users. Please input other keyworld!!'}</span>
+      <div className="UserList-footer">
+        { (this.state.loadMore) ? <Spin /> : this.showMoreButton() }
       </div>
     )
   }
@@ -81,11 +77,14 @@ class UserList extends React.Component {
             User Count: {userCount}
           </span>
         </div>
-        { (userCount) ? 
-            users.map((item) => <UserListItem key={item.id} user={item}/>) : this.showNoDataContent() }
-        <div className="UserList-footer">
-          { this.showFooterContent() }
-        </div>
+        <List 
+          dataSource={users}
+          renderItem={(item) => (<UserListItem user={item}/>)}
+          locale={{
+            emptyText: 'No Users. Please input other keyworld!!'
+          }}
+          loadMore={this.showFooterContent()}
+        />
       </div>
     )
 
