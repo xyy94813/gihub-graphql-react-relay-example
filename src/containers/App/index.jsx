@@ -35,7 +35,7 @@ class App extends Component {
         <Content className="App-main">
           <div className="App-main-content">
             <div className="App-main-content-toolbar">
-              <Input.Search defaultValue={searchText} onSearch={this.handleInputChange}/>
+              <Input.Search defaultValue={searchText} onSearch={this.handleInputChange} enterButton/>
             </div>
             <div className="App-main-content-data">
               <UserList query={searchText}/>
