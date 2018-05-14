@@ -53,6 +53,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "relay": "relay-compiler --src ./src/ --schema ./data/schema.graphql --extensions=js jsx",
+    "schema": "node scripts/upgrade_schema.js",
     "injectToken": "node scripts/injectToken.js"
   },
   "jest": {
