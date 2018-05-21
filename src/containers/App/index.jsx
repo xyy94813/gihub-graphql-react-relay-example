@@ -4,7 +4,6 @@ import {
   Input,
 } from 'antd';
 import './App.css';
-// import UserListItem from '../../components/UserListItem'
 import UserList from '../UserList'
 
 const { Header, Content, Footer } = Layout;
@@ -12,12 +11,16 @@ const { Header, Content, Footer } = Layout;
 class App extends Component {
 
   state = {
-    searchText: 'xyy'
+    searchText: 'xyy94813',
   }
 
   handleInputChange = (value) => {
-    this.setState({ 
-      searchText: value
+    this.setState((preState) => {
+      if (preState.searchText !== value) {
+        return {
+          searchText: value,
+        }
+      }
     })
   }
 
@@ -30,7 +33,7 @@ class App extends Component {
     return (
       <Layout className="App">
         <Header>
-          <h1 className="App-header-title"><span>gihub-graphql-react-relay-example</span></h1>
+          <h1 className="App-header-title">gihub-graphql-react-relay-example</h1>
         </Header>
         <Content className="App-main">
           <div className="App-main-content">
@@ -38,7 +41,7 @@ class App extends Component {
               <Input.Search defaultValue={searchText} onSearch={this.handleInputChange} enterButton/>
             </div>
             <div className="App-main-content-data">
-              <UserList query={searchText}/>
+              <UserList searchText={searchText}/>
             </div>
           </div>
         </Content>

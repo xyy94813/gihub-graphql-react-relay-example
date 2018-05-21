@@ -1,6 +1,6 @@
 import React from "react";
 import _ from 'lodash'
-import { Row, Col, Modal, List, Avatar, Divider, Icon } from "antd";
+import { Row, Col, Modal, List, Avatar, Divider, Icon, Spin } from "antd";
 import { QueryRenderer, createFragmentContainer, graphql } from "react-relay";
 
 import UserDetails from "../../containers/UserDetails";
@@ -15,7 +15,7 @@ function renderDetails({ error, props }) {
   } else if (props) {
     return <UserDetails user={props.user} />;
   } else {
-    return <div>Loading</div>;
+    return <Spin><div style={{ minHeight: 200 }}/></Spin>;
   }
 }
 

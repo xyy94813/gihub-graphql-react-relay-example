@@ -19,7 +19,7 @@ const DEFAULT_PAGE_SIZE = 15
 
 class UserList extends React.Component {
   
-  defaultProps = {
+  static defaultProps = {
     pageSize: DEFAULT_PAGE_SIZE
   }
 
@@ -133,8 +133,9 @@ const UserListContainer = createPaginationContainer(UserList, graphql`
   },
   getVariables(props, prevVars, fragmentVariables) {
     return {
+      ...fragmentVariables,
       ...prevVars,
-      query: fragmentVariables.query
+      ...props,
     };
   },
   query: QUERY
@@ -146,23 +147,18 @@ function renderDetails({ error, props }) {
   } else if (props) {
     return <UserListContainer data={props} />;
   } else {
-    return <Spin><div style={{ minHeight: 300}}/></Spin>
+    return <Spin><div style={{ minHeight: 300 }}/></Spin>
   }
 }
 
-export default function (_props) {
-
-  const { query } = _props
-  return (
-    <QueryRenderer
-      environment={modernEnvironment}
-      query={QUERY}
-      variables={{ 
-        query,
-        count: DEFAULT_PAGE_SIZE 
-      }}
-      render={renderDetails}
-    />
-  )
-
-}
+export default (props) => (
+  <QueryRenderer
+    environment={modernEnvironment}
+    query={QUERY}
+    variables={{
+      query: props.searchText || '',
+      count: DEFAULT_PAGE_SIZE
+    }}
+    render={renderDetails}
+  />
+)
