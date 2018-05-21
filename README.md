@@ -2,30 +2,59 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-## Necessary 1
+## Step 1
 
-    yarn install
-    yarn run relay
+Install all dependencies by `yarn`
 
-## Necessary 2
+```
+yarn
+```
 
-    generate `.env.local`
-    
-    Configuration ENV
+## Step 2
+
+Generate `.env.local` and Configure ENV
+
+```
+GITHUB_API_TOKEN=${your github token}
+```
+
+## Step 3
+
+Upgrade Github graphql schema
+
+```
+yarn run schema
+```
+
+## Step 4 
+
+Generate `*.graphql.js`
+
+```
+yarn run relay
+```
 
 ## Dev
 
-    yarn start
+```
+yarn start
+```
   
 ## Production
 
-    yarn run build
+```
+yarn run build
+```
   
-## test
+## Test
 
-   yarn run test
-
+```
+yarn run test
+```
 
 ## ENV_KEY
-    
-    GITHUB_API_TOKEN
+
+```
+# your github token
+GITHUB_API_TOKEN
+```  
