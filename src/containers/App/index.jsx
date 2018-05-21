@@ -33,7 +33,7 @@ class App extends Component {
     return (
       <Layout className="App">
         <Header>
-          <h1 className="App-header-title">gihub-graphql-react-relay-example</h1>
+          <h1 className="App-header-title">github-graphql-react-relay-example</h1>
         </Header>
         <Content className="App-main">
           <div className="App-main-content">
