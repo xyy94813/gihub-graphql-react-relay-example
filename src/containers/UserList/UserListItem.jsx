@@ -1,13 +1,14 @@
 import React from "react";
-import _ from 'lodash'
+import _ from "lodash";
 import { Row, Col, Modal, List, Avatar, Divider, Icon, Spin } from "antd";
 import { QueryRenderer, createFragmentContainer, graphql } from "react-relay";
 
+import LinkButton from "../../components/LinkButton";
 import UserDetails from "../../containers/UserDetails";
 import modernEnvironment from "../../createRelayEnvironment";
 
-const { Item: ListItem } = List
-const { Meta: ListItemMeta } = ListItem
+const { Item: ListItem } = List;
+const { Meta: ListItemMeta } = ListItem;
 
 function renderDetails({ error, props }) {
   if (error) {
@@ -15,13 +16,17 @@ function renderDetails({ error, props }) {
   } else if (props) {
     return <UserDetails user={props.user} />;
   } else {
-    return <Spin><div style={{ minHeight: 200 }}/></Spin>;
+    return (
+      <Spin>
+        <div style={{ minHeight: 200 }} />
+      </Spin>
+    );
   }
 }
 
 function getClickHandler(login) {
   return e => {
-    e.stopPropagation()
+    e.stopPropagation();
     Modal.info({
       title: "User Details",
       width: 800,
@@ -44,44 +49,48 @@ function getClickHandler(login) {
 }
 
 function UserListItem(props) {
-
   const { user } = props;
 
-  const avatarUrl = _.get(user, 'avatarUrl')
-  const login = _.get(user, 'login')
-  const name = _.get(user, 'name')
-  const location = _.get(user, 'location')
-  const email = _.get(user, 'email')
-  const url = _.get(user, 'url')
+  const avatarUrl = _.get(user, "avatarUrl");
+  const login = _.get(user, "login");
+  const name = _.get(user, "name");
+  const location = _.get(user, "location");
+  const email = _.get(user, "email");
+  const url = _.get(user, "url");
 
   return (
     <ListItem
-      actions={[
-        <a onClick={getClickHandler(login)}>more</a>
-      ]}
+      actions={[<LinkButton onClick={getClickHandler(login)}>more</LinkButton>]}
     >
       <ListItemMeta
-        avatar={<Avatar src={avatarUrl} alt="avatarUrl" size="large" shape="square" />}
+        avatar={
+          <Avatar src={avatarUrl} alt="avatarUrl" size="large" shape="square" />
+        }
         title={
           <div>
-            <a href={url} target="__blank">{login}</a>
-            { name && <Divider type="vertical"/> }
-            { name && <span>{name}</span> }
+            <a href={url} target="__blank">
+              {login}
+            </a>
+            {name && <Divider type="vertical" />}
+            {name && <span>{name}</span>}
           </div>
         }
         description={
           <Row type="flex" gutter={10}>
             <Col>
-              <Icon type="mail" style={{marginRight: 5}}/>
+              <Icon type="mail" style={{ marginRight: 5 }} />
               <span>{email || "none"}</span>
             </Col>
             <Col>
-              <Icon type="environment" style={{marginRight: 5}}/>
+              <Icon type="environment" style={{ marginRight: 5 }} />
               <span>{location || "none"}</span>
             </Col>
-            <Col> 
-              <Icon type="link" style={{marginRight: 5}}/>
-              <a href={url} target="__blank"> {url}</a>
+            <Col>
+              <Icon type="link" style={{ marginRight: 5 }} />
+              <a href={url} target="__blank">
+                {" "}
+                {url}
+              </a>
             </Col>
           </Row>
         }
