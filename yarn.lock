@@ -9504,6 +9504,11 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   resolved "http://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-relay-network-modern@^2.5.0:
+  version "2.5.0"
+  resolved "http://116.62.9.20:8081/repository/npm-group/react-relay-network-modern/-/react-relay-network-modern-2.5.0.tgz#24166dbdcf491aa6c519ae99e5402b41c73040f6"
+  integrity sha1-JBZtvc9JGqbFGa6Z5UArQccwQPY=
+
 react-relay@^1.7.0:
   version "1.7.0"
   resolved "http://116.62.9.20:8081/repository/npm-group/react-relay/-/react-relay-1.7.0.tgz#6a21df4e6bb52c7a02374ad288ccbeb0172f095d"
