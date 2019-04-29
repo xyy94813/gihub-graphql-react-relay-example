@@ -10,7 +10,7 @@ import {
   authMiddleware,
   cacheMiddleware,
   progressMiddleware
-} from "react-relay-network-modern";
+} from "react-relay-network-modern/lib";
 
 const __DEV__ = process.env.NODE_ENV === "development";
 // const MAX_RETRY_TIMES = 2;
