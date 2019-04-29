@@ -11,8 +11,8 @@
     "react": "^16.6.1",
     "react-app-rewired": "^1.5.2",
     "react-dom": "^16.6.1",
-    "react-relay": "^1.7.0",
-    "react-relay-network-modern": "^2.5.0",
+    "react-relay": "^3.0.0",
+    "react-relay-network-modern": "^3.0.2",
     "react-scripts": "^2.1.1",
     "update-graphql-schema": "^0.0.1"
   },
@@ -27,9 +27,9 @@
   "devDependencies": {
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-module-resolver": "^3.1.1",
-    "babel-plugin-relay": "^1.7.0",
+    "babel-plugin-relay": "^3.0.0",
     "react-app-rewire-less": "^2.1.1",
-    "relay-compiler": "^1.7.0"
+    "relay-compiler": "^3.0.0"
   },
   "browserslist": [
     ">0.2%",
