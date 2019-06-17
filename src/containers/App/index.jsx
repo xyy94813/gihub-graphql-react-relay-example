@@ -4,7 +4,7 @@ import {
   Input,
 } from 'antd';
 import './App.css';
-import UserList from '../UserList'
+import UserList from '../../components/UserList'
 
 const { Header, Content, Footer } = Layout;
 

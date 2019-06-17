@@ -1,19 +1,24 @@
 import React from "react";
 import { createFragmentContainer, graphql } from "react-relay";
 import { Tabs, Badge, Row, Col } from "antd";
+import _ from "lodash";
 
-import RepositoryListItem from "../../components/RepositoryListItem";
+import RepositoryList from "../RepositoryList";
 
 const TabPane = Tabs.TabPane;
 
-function UserDetails(props) {
-  const { user: { repositories, starredRepositories, ...other } } = props;
+function getEdgeNode(edge) {
+  return edge.node;
+}
+
+function UserDetails({ user }) {
+  const otherVals = _.omit(user, ["repositories", "starredRepositories"]);
   return (
     <div>
       <Row gutter={15}>
-        {Object.entries(other).map(item => {
-          const [key, val] = item;
-          return (
+        {_.map(
+          otherVals,
+          (val, key) =>
             val && (
               <Col key={key} span={12}>
                 <span>
@@ -22,36 +27,44 @@ function UserDetails(props) {
                 <span>{val}</span>
               </Col>
             )
-          );
-        })}
+        )}
       </Row>
       <Row>
         <Tabs defaultActiveKey="1">
           <TabPane
             tab={
               <div>
-                repositories&nbsp;<Badge count={repositories.totalCount} />
+                Repositories&nbsp;
+                <Badge count={_.get(user, "repositories.totalCount")} />
               </div>
             }
             key="1"
           >
-            {repositories.edges.map((item, index) => (
-              <RepositoryListItem key={index} repository={item.node} />
-            ))}
+            <RepositoryList
+              data={_.map(_.get(user, "repositories.edges"), getEdgeNode)}
+              pagination={{
+                pageSize: 5
+              }}
+            />
           </TabPane>
           <TabPane
             tab={
               <div>
-                starredRepositories&nbsp;<Badge
-                  count={starredRepositories.totalCount}
-                />
+                Starred Repositories&nbsp;
+                <Badge count={_.get(user, "starredRepositories.totalCount")} />
               </div>
             }
             key="2"
           >
-            {starredRepositories.edges.map((item, index) => (
-              <RepositoryListItem key={index} repository={item.node} />
-            ))}
+            <RepositoryList
+              data={_.map(
+                _.get(user, "starredRepositories.edges"),
+                getEdgeNode
+              )}
+              pagination={{
+                pageSize: 5
+              }}
+            />
           </TabPane>
         </Tabs>
       </Row>
@@ -75,7 +88,7 @@ export default createFragmentContainer(
         totalCount
         edges {
           node {
-            ...RepositoryListItem_repository
+            ...RepositoryList
           }
         }
       }
@@ -84,7 +97,7 @@ export default createFragmentContainer(
         totalCount
         edges {
           node {
-            ...RepositoryListItem_repository
+            ...RepositoryList
           }
         }
       }
