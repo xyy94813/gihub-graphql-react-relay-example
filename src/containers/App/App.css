@@ -8,7 +8,7 @@
   height: 80px;
 }*/
 .App-header-title {
-  color: #fff
+  color: #fff;
 }
 .App-main {
   padding: 24px;
@@ -20,19 +20,6 @@
   min-height: calc(100vh - 181px);
 }
 
-.App-main-content-toolbar {
-  margin: 15px 0;
-}
-
-.App-main-content-loader {
-  margin: 15px 0;
-  text-align: center;
-}
 .App-footer {
   text-align: right;
-}
-
-.App-main-content-data {
-  min-height: 100%;
-  padding: 10px 0;
 }
