@@ -2,8 +2,10 @@ const {
   override,
   addBabelPlugins,
   fixBabelImports,
-  addLessLoader
+  // addLessLoader
 } = require("customize-cra");
+
+const addLessLoader = require('customize-cra-less-loader');
 
 const babelPlugins = addBabelPlugins("relay", [
   "module-resolver",
@@ -26,7 +28,14 @@ module.exports = {
         camel2DashComponentName: false
       }),
       addLessLoader({
-        javascriptEnabled: true
+        cssLoaderOptions: {
+          modules: {
+            localIdentName: '[local]--[hash:base64:5]',
+          },
+        },
+        lessLoaderOptions: {
+          javascriptEnabled: true,
+        },
       })
     )(config, env)
   // jest: (config) => config,
