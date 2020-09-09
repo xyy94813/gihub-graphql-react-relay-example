@@ -15,21 +15,19 @@ yarn
 Generate `.env.local` and Configure ENV
 
 ```
-GITHUB_API_TOKEN=${your github token}
+REACT_APP_GITHUB_API_TOKEN=${your github token}
 ```
 
 ## Step 3
 
-Upgrade Github graphql schema `yarn run schema -e {You env file}`
+Upgrade Github graphql schema `yarn run updateSchema`
 
 ```
 // such as
-yarn run schema -e .env.local
-//  or 
-yarn run schema -e  .env -e .env.local -e .env.development.local
+yarn run updateSchema
 ```
 
-## Step 4 
+## Step 4
 
 Generate `*.graphql.js`
 
@@ -42,13 +40,13 @@ yarn run relay
 ```
 yarn start
 ```
-  
+
 ## Production
 
 ```
 yarn run build
 ```
-  
+
 ## Test
 
 ```
@@ -59,5 +57,5 @@ yarn run test
 
 ```
 # your github token
-GITHUB_API_TOKEN
-```  
+REACT_APP_GITHUB_API_TOKEN
+```

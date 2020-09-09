@@ -19,8 +19,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "relay": "relay-compiler --src ./src/ --schema ./data/schema.json --extensions=js jsx",
-    "schema": "dotenv node scripts/upgrade_schema.js"
+    "relay": "relay-compiler --src ./src/ --schema ./data/schema.json --extensions=js,jsx",
+    "updateSchema": "updateSchema -c updateSchema.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -29,11 +29,11 @@
     "babel-plugin-relay": "^3.0.0",
     "customize-cra": "^0.9.1",
     "customize-cra-less-loader": "^1.0.0",
-    "dotenv-cli": "^2.0.0",
+    "dotenv-load": "^2.0.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "relay-compiler": "^3.0.0",
-    "update-graphql-schema": "^0.0.1"
+    "update-graphql-schema": "^0.2.3"
   },
   "browserslist": [
     ">0.2%",
