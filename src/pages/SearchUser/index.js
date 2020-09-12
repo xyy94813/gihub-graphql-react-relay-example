@@ -68,20 +68,19 @@ const SearchUser = ({ data, defaultSearchText, relay }) => {
 
 const QUERY = graphql`
   query SearchUserQuery($count: Int, $cursor: String, $query: String!) {
-    ...SearchUser
+    ...SearchUser_data
   }
 `;
 
 const SearchUserContainer = createPaginationContainer(
   SearchUser,
-  graphql`
-    fragment SearchUser on Query {
-      users: search(first: $count, after: $cursor, query: $query, type: USER)
-        @connection(key: "UserList_users") {
+  {
+    data: graphql`fragment SearchUser_data on Query {
+      users: search(first: $count, after: $cursor, query: $query, type: USER) @connection(key: "UserList_users") {
         edges {
           cursor
           node {
-            ...UserList
+            ...UserList_data
           }
         }
         userCount
@@ -92,8 +91,8 @@ const SearchUserContainer = createPaginationContainer(
           hasPreviousPage
         }
       }
-    }
-  `,
+    }`
+  },
   {
     direction: "forward",
     getConnectionFromProps(props) {

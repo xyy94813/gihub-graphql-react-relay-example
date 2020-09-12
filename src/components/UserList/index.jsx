@@ -16,7 +16,7 @@ const { Meta: ListItemMeta } = ListItem;
 class UserList extends PureComponent {
   $userDetailsModalContainer = React.createRef();
 
-  renderItem = record => {
+  renderItem = (record) => {
     const avatarUrl = _.get(record, "avatarUrl");
     const login = _.get(record, "login");
     const name = _.get(record, "name");
@@ -24,7 +24,7 @@ class UserList extends PureComponent {
     const email = _.get(record, "email");
     const url = _.get(record, "url");
 
-    const handleMoreBtnClick = e => {
+    const handleMoreBtnClick = (e) => {
       e.stopPropagation();
       this.setState({ user: record }, () => {
         this.$userDetailsModalContainer.current.show();
@@ -103,7 +103,7 @@ class UserList extends PureComponent {
               }
             `}
             variables={{ login: username }}
-            render={QueryRendererWrapper(props => (
+            render={QueryRendererWrapper((props) => (
               <UserDetails user={props.data.user} />
             ))}
           />
@@ -122,7 +122,7 @@ class UserList extends PureComponent {
           dataSource={data}
           renderItem={this.renderItem}
           locale={{
-            emptyText: "No Users. Please input other keyworld!!"
+            emptyText: "No Users. Please input other keyworld!!",
           }}
         />
         <ModalContainer ref={this.$userDetailsModalContainer}>
@@ -133,10 +133,9 @@ class UserList extends PureComponent {
   }
 }
 
-const UserListContainer = createFragmentContainer(
-  UserList,
-  graphql`
-    fragment UserList on User @relay(plural: true) {
+const UserListContainer = createFragmentContainer(UserList, {
+  data: graphql`
+    fragment UserList_data on User @relay(plural: true) {
       id
       avatarUrl
       login
@@ -145,7 +144,7 @@ const UserListContainer = createFragmentContainer(
       email
       url
     }
-  `
-);
+  `,
+});
 
 export default UserListContainer;

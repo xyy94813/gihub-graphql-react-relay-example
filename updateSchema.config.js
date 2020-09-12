@@ -9,6 +9,6 @@ module.exports = {
   headers: {
     Authorization: `bearer ${process.env.REACT_APP_GITHUB_API_TOKEN}`,
   },
-  type: 'json', // or graphql
-  output: path.join(__dirname, 'data', 'schema.json'),
+  type: 'graphql', // or graphql
+  output: path.join(__dirname, 'data', 'schema.docs.graphql'),
 };

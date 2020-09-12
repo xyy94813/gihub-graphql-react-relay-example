@@ -43,7 +43,7 @@ function UserDetails({ user }) {
             <RepositoryList
               data={_.map(_.get(user, "repositories.edges"), getEdgeNode)}
               pagination={{
-                pageSize: 5
+                pageSize: 5,
               }}
             />
           </TabPane>
@@ -62,7 +62,7 @@ function UserDetails({ user }) {
                 getEdgeNode
               )}
               pagination={{
-                pageSize: 5
+                pageSize: 5,
               }}
             />
           </TabPane>
@@ -72,9 +72,8 @@ function UserDetails({ user }) {
   );
 }
 
-export default createFragmentContainer(
-  UserDetails,
-  graphql`
+export default createFragmentContainer(UserDetails, {
+  user: graphql`
     fragment UserDetails_user on User {
       login
       name
@@ -83,24 +82,22 @@ export default createFragmentContainer(
       company
       createdAt
       location
-
       starredRepositories(first: 100) {
         totalCount
         edges {
           node {
-            ...RepositoryList
+            ...RepositoryList_data
           }
         }
       }
-
       repositories(first: 100) {
         totalCount
         edges {
           node {
-            ...RepositoryList
+            ...RepositoryList_data
           }
         }
       }
     }
-  `
-);
+  `,
+});

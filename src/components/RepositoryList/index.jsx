@@ -4,7 +4,7 @@ import { Avatar, Divider, Icon, List } from "antd";
 import _ from "lodash";
 
 class RepositoryList extends PureComponent {
-  renderItem = record => {
+  renderItem = (record) => {
     const title = (
       <>
         <a
@@ -48,10 +48,9 @@ class RepositoryList extends PureComponent {
   }
 }
 
-export default createFragmentContainer(
-  RepositoryList,
-  graphql`
-    fragment RepositoryList on Repository @relay(plural: true) {
+export default createFragmentContainer(RepositoryList, {
+  data: graphql`
+    fragment RepositoryList_data on Repository @relay(plural: true) {
       name
       url
       description
@@ -69,5 +68,5 @@ export default createFragmentContainer(
         totalCount
       }
     }
-  `
-);
+  `,
+});
