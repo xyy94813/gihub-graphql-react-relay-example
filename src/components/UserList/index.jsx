@@ -1,19 +1,42 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Suspense } from "react";
 import _ from "lodash";
-import { createFragmentContainer, graphql, QueryRenderer } from "react-relay";
-import { List, Avatar, Divider, Icon, Row, Col, Modal } from "antd";
+import { createFragmentContainer, graphql } from "react-relay";
+import { useLazyLoadQuery } from  'react-relay/hooks';
+import { List, Avatar, Divider, Icon, Row, Col, Modal, Skeleton } from "antd";
 
 import LinkButton from "../LinkButton";
 import ModalContainer from "../ModalContainer";
 import UserDetails from "../UserDetails";
-import QueryRendererWrapper from "../QueryRendererWrapper";
 
 import "./UserList.css";
 
 const { Item: ListItem } = List;
 const { Meta: ListItemMeta } = ListItem;
 
+function LazyLoadUserDetails ({ login }) {
+  const data = useLazyLoadQuery(
+    graphql`
+      query UserListUserDetailsModalQuery($login: String!) {
+        data: relay {
+          user(login: $login) {
+            id
+            ...UserDetails_user
+          }
+        }
+      }
+    `,
+    { login },
+    { fetchPolicy: 'store-or-network' },
+  )
+  
+  return <UserDetails user={data?.data?.user || null}/>
+}
+
 class UserList extends PureComponent {
+  state = {
+    user: null
+  };
+
   $userDetailsModalContainer = React.createRef();
 
   renderItem = (record) => {
@@ -79,7 +102,8 @@ class UserList extends PureComponent {
   };
 
   renderUserDetailsModal = ({ visible, hide }) => {
-    const username = _.get(this.state, "user.login");
+    const { user } = this.state;
+    const username = user?.login;
 
     return (
       <Modal
@@ -89,25 +113,9 @@ class UserList extends PureComponent {
         onOk={hide}
         width={800}
       >
-        {username && (
-          <QueryRenderer
-            environment={this.props.relay.environment}
-            query={graphql`
-              query UserListUserDetailsModalQuery($login: String!) {
-                data: relay {
-                  user(login: $login) {
-                    id
-                    ...UserDetails_user
-                  }
-                }
-              }
-            `}
-            variables={{ login: username }}
-            render={QueryRendererWrapper((props) => (
-              <UserDetails user={props.data.user} />
-            ))}
-          />
-        )}
+        <Suspense fallback={<Skeleton />}>
+          {username && <LazyLoadUserDetails login={username} />}
+        </Suspense>
       </Modal>
     );
   };

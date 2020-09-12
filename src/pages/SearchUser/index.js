@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { createPaginationContainer, graphql, QueryRenderer } from "react-relay";
+import { useRelayEnvironment } from "react-relay/hooks";
 import { Button, Spin, Input, Statistic } from "antd";
 import _ from "lodash";
 
 import UserList from "../../components/UserList";
 import QueryRendererWrapper from "../../components/QueryRendererWrapper";
-import modernEnvironment from "../../createRelayEnvironment";
 import "./index.less";
 
 const DEFAULT_PAGE_SIZE = 15;
@@ -115,16 +115,19 @@ const SearchUserContainer = createPaginationContainer(
   }
 );
 
-export default props => (
-  <QueryRenderer
-    environment={modernEnvironment}
-    query={QUERY}
-    variables={{
-      query: props.defaultSearchText || "",
-      count: DEFAULT_PAGE_SIZE
-    }}
-    render={QueryRendererWrapper(_props => (
-      <SearchUserContainer {...props} data={_props} />
-    ))}
-  />
-);
+export default props => {
+  const environment = useRelayEnvironment();
+  return (
+    <QueryRenderer
+      environment={environment}
+      query={QUERY}
+      variables={{
+        query: props.defaultSearchText || "",
+        count: DEFAULT_PAGE_SIZE
+      }}
+      render={QueryRendererWrapper(_props => (
+        <SearchUserContainer {...props} data={_props} />
+      ))}
+    />
+  )
+};
