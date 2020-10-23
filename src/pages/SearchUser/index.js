@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { createPaginationContainer, graphql, QueryRenderer } from "react-relay";
-import { useRelayEnvironment } from "react-relay/hooks";
-import { Button, Spin, Input, Statistic } from "antd";
-import _ from "lodash";
+import React, { useState } from 'react';
+import { createPaginationContainer, graphql, QueryRenderer } from 'react-relay';
+import { useRelayEnvironment } from 'react-relay/hooks';
+import { Button, Spin, Input, Statistic } from 'antd';
+import _ from 'lodash';
 
-import UserList from "../../components/UserList";
-import QueryRendererWrapper from "../../components/QueryRendererWrapper";
-import "./index.less";
+import UserList from '../../components/UserList';
+import QueryRendererWrapper from '../../components/QueryRendererWrapper';
+import './index.less';
 
 const DEFAULT_PAGE_SIZE = 15;
 
@@ -14,19 +14,19 @@ const SearchUser = ({ data, defaultSearchText, relay }) => {
   // const [searchText, setSearchText = defaultSearchText] = useState("xyy94813");
   const [loadMore, setLoadMore] = useState(false);
 
-  const userCount = _.get(data, "users.userCount", 0);
+  const userCount = _.get(data, 'users.userCount', 0);
 
   return (
     <>
       <div className="App-main-content-toolbar">
         <Input.Search
           defaultValue={defaultSearchText}
-          onSearch={val => {
+          onSearch={(val) => {
             if (relay.isLoading()) {
               return;
             }
             relay.refetchConnection(DEFAULT_PAGE_SIZE, () => {}, {
-              query: val
+              query: val,
             });
           }}
           enterButton
@@ -37,19 +37,19 @@ const SearchUser = ({ data, defaultSearchText, relay }) => {
           <Statistic title="User Count" value={userCount} />
         </div>
         <UserList
-          data={_.map(_.get(data, "users.edges"), item => item.node)}
+          data={_.map(_.get(data, 'users.edges'), (item) => item.node)}
           loadMore={
             <div className="SearchUser-list-footer">
               {loadMore ? (
                 <Spin />
               ) : relay.hasMore() ? (
                 <Button
-                  onClick={e => {
+                  onClick={(e) => {
                     if (loadMore) {
                       return;
                     }
                     setLoadMore(true);
-                    relay.loadMore(DEFAULT_PAGE_SIZE, error => {
+                    relay.loadMore(DEFAULT_PAGE_SIZE, (error) => {
                       setLoadMore(false);
                       error && console.error(error);
                     });
@@ -68,66 +68,76 @@ const SearchUser = ({ data, defaultSearchText, relay }) => {
 
 const QUERY = graphql`
   query SearchUserQuery($count: Int, $cursor: String, $query: String!) {
-    ...SearchUser_data
+    ...SearchUser_data @arguments(count: $count, cursor: $cursor, query: $query)
   }
 `;
 
 const SearchUserContainer = createPaginationContainer(
   SearchUser,
   {
-    data: graphql`fragment SearchUser_data on Query {
-      users: search(first: $count, after: $cursor, query: $query, type: USER) @connection(key: "UserList_users") {
-        edges {
-          cursor
-          node {
-            ...UserList_data
+    data: graphql`
+      fragment SearchUser_data on Query
+      @argumentDefinitions(
+        count: { type: "Int", defaultValue: 10 }
+        cursor: { type: "String" }
+        query: { type: "String!" }
+      ) {
+        users: search(first: $count, after: $cursor, query: $query, type: USER)
+          @connection(key: "UserList_users") {
+          edges {
+            cursor
+            node {
+              ...UserList_data
+            }
+          }
+          userCount
+          pageInfo {
+            startCursor
+            endCursor
+            hasNextPage
+            hasPreviousPage
           }
         }
-        userCount
-        pageInfo {
-          startCursor
-          endCursor
-          hasNextPage
-          hasPreviousPage
-        }
       }
-    }`
+    `,
   },
   {
-    direction: "forward",
+    direction: 'forward',
     getConnectionFromProps(props) {
-      return _.get(props, "data.users", null);
+      return props?.data?.users || null;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
         ...prevVars,
-        count: totalCount
+        count: totalCount,
       };
     },
-    getVariables(props, prevVars, fragmentVariables) {
+    getVariables(props, { count, cursor }, fragmentVariables) {
       return {
+        query: props.defaultSearchText,
         ...fragmentVariables,
-        ...prevVars,
-        ...props
+        count,
+        cursor,
+        // ...props
       };
     },
-    query: QUERY
-  }
+    query: QUERY,
+  },
 );
 
-export default props => {
+export default (props) => {
   const environment = useRelayEnvironment();
   return (
     <QueryRenderer
       environment={environment}
       query={QUERY}
       variables={{
-        query: props.defaultSearchText || "",
-        count: DEFAULT_PAGE_SIZE
+        query: props.defaultSearchText || '',
+        count: DEFAULT_PAGE_SIZE,
       }}
-      render={QueryRendererWrapper(_props => (
+      render={QueryRendererWrapper((_props) => (
         <SearchUserContainer {...props} data={_props} />
       ))}
     />
-  )
+  );
 };
