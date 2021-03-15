@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Step 1
 
-Install all dependencies by `yarn`
+Install all dependencies by `npm`
 
 ```
-yarn
+npm i
 ```
 
 ## Step 2
@@ -20,11 +20,11 @@ REACT_APP_GITHUB_API_TOKEN=${your github token}
 
 ## Step 3
 
-Upgrade Github graphql schema `yarn run updateSchema`
+Upgrade Github graphql schema `npm run updateSchema`
 
 ```
 // such as
-yarn run updateSchema
+npm run updateSchema
 ```
 
 ## Step 4
@@ -32,25 +32,25 @@ yarn run updateSchema
 Generate `*.graphql.js`
 
 ```
-yarn run relay
+npm run relay
 ```
 
 ## Dev
 
 ```
-yarn start
+npm start
 ```
 
 ## Production
 
 ```
-yarn run build
+npm run build
 ```
 
 ## Test
 
 ```
-yarn run test
+npm run test
 ```
 
 ## ENV_KEY
