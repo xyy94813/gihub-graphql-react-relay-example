@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 
 import relayEnv from "../../createRelayEnvironment";
@@ -7,16 +7,12 @@ import SearchUser from "../../pages/SearchUser";
 
 import "./App.css";
 
-class App extends PureComponent {
-  render() {
-    return (
-      <RelayEnvironmentProvider environment={relayEnv}>
-        <BasicLayout>
-          <SearchUser defaultSearchText="xyy94813" />
-        </BasicLayout>
-      </RelayEnvironmentProvider>
-    );
-  }
-}
+const App = () => (
+  <RelayEnvironmentProvider environment={relayEnv}>
+    <BasicLayout>
+      <SearchUser defaultSearchText="xyy94813" />
+    </BasicLayout>
+  </RelayEnvironmentProvider>
+);
 
 export default App;
