@@ -1,4 +1,3 @@
-import React from "react";
 import { createFragmentContainer, graphql } from "react-relay";
 import { Tabs, Badge, Descriptions } from "antd";
 import _ from "lodash";

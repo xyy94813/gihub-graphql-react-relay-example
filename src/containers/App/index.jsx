@@ -1,4 +1,3 @@
-import React from "react";
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 
 import relayEnv from "../../createRelayEnvironment";

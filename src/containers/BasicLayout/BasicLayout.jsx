@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Layout } from 'antd';
 
 const {  Header, Content, Footer } = Layout;
@@ -22,4 +22,4 @@ function BasicLayout({ children }) {
   );
 }
 
-export default React.memo(BasicLayout);
+export default memo(BasicLayout);

@@ -1,4 +1,4 @@
-import React, { PureComponent, Suspense } from "react";
+import { createRef, PureComponent, Suspense } from "react";
 import _ from "lodash";
 import { createFragmentContainer, graphql } from "react-relay";
 import { useLazyLoadQuery } from  'react-relay/hooks';
@@ -37,7 +37,7 @@ class UserList extends PureComponent {
     user: null
   };
 
-  $userDetailsModalContainer = React.createRef();
+  $userDetailsModalContainer = createRef();
 
   renderItem = (record) => {
     const avatarUrl = _.get(record, "avatarUrl");
