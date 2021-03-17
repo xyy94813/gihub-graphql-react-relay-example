@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { createPaginationContainer, graphql, QueryRenderer } from 'react-relay';
-import { useRelayEnvironment } from 'react-relay/hooks';
+import { createPaginationContainer, graphql, QueryRenderer } from 'react-relay/legacy';
+import { useRelayEnvironment } from 'react-relay';
 import { Button, Spin, Input, Statistic } from 'antd';
 import _ from 'lodash';
 

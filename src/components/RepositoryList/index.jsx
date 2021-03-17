@@ -1,4 +1,4 @@
-import { createFragmentContainer, graphql } from 'react-relay';
+import { createFragmentContainer, graphql } from 'react-relay/legacy';
 import { Avatar, Divider, Icon, List } from 'antd';
 import _ from 'lodash';
 
